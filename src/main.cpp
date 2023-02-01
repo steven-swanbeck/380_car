@@ -64,31 +64,40 @@ void loop() {
     yVal = map(yVal, 0, 1023, 0, 255);
     Serial.println(xVal);
     Serial.println(yVal);
-    delay(200);
-    if (xVal == 128 && yVal == 128){
+    // delay(200);
+    if (xVal == 121 && yVal == 129){
         analogWrite(enA, 0);
         analogWrite(enB, 0);
     }
-    else if (yVal < 128){
+    else if (yVal >= 120 && yVal <= 140){
         setMotorsForward();
-        if (xVal == 128){
-            analogWrite(enA, ((128-yVal)-1)); 
-            analogWrite(enB, ((128-yVal)-1));
+        analogWrite(enA, ((xVal))); 
+        analogWrite(enB, ((255-xVal)));
+    }
+    else if (yVal < 120){
+        setMotorsForward();
+        if (xVal >= 110 && xVal <= 130){
+            analogWrite(enA, ((129-yVal))); //Set both motors to the same speed: Half maximum minus intensity
+            analogWrite(enB, ((129-yVal)));
         }
         else{
-            analogWrite(enB, (2*(128-yVal)-1)*((255-xVal)/255)); //If x = 255, left speed = 0. If x = 0, left speed = maximum
-            analogWrite(enA, (2*(128-yVal)-1)*(1-(255-xVal)/255)); //If x = 255, right speed maximum. If x = 0, right speed = 0. 
+            // analogWrite(enA, (2*(129-yVal)-3)*(1-(255-xVal)/255)); //If x = 255, right speed maximum. If x = 0, right speed = 0. 
+            // analogWrite(enB, (2*(129-yVal)-3)*((255-xVal)/255)); //If x = 255, left speed = 0. If x = 0, left speed = maximum
+            analogWrite(enA, 0);
+            analogWrite(enB, 0);
         }
     }
-    else if (yVal > 128){
+    else if (yVal > 140){
         setMotorsBackward();
-        if (xVal == 128){
-            analogWrite(enA, ((yVal-128)));
-            analogWrite(enB, ((yVal-128)));
+        if (xVal >= 110 && xVal <= 130){
+            analogWrite(enA, ((yVal-129)));
+            analogWrite(enB, ((yVal-129)));
         }
         else{
-            analogWrite(enB, ((2*(yVal-128)+1)*((255-xVal)/255))); //If x = 255, left speed = 0. If x = 0, left speed = maximum
-            analogWrite(enA, ((2*(yVal-128)+1)*(1-(255-xVal)/255))); //If x = 255, right speed maximum. If x = 0, right speed = 0. 
+            // analogWrite(enA, ((2*(yVal-129)+3)*(1-(255-xVal)/255))); //If x = 255, right speed maximum. If x = 0, right speed = 0. 
+            // analogWrite(enB, ((2*(yVal-129)+3)*((255-xVal)/255))); //If x = 255, left speed = 0. If x = 0, left speed = maximum
+            analogWrite(enA, 0);
+            analogWrite(enB, 0);    
         }
     }
 
