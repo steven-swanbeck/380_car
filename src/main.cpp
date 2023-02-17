@@ -8,8 +8,8 @@
 #define in4 6
 #define enB 5
 
-int motorSpeedA = 0;
-int motorSpeedB = 0;
+int motorSpeedA {0};
+int motorSpeedB {0};
 
 
 
@@ -32,13 +32,13 @@ void setup() {
 
     // User input
     // -------------------
-    int radius = 12; // in
+    int radius {12}; // in
     // -------------------
 
     // Calculations
-    int bodywidth = 9; // in
-    int outer_radius = radius + bodywidth; //in
-    float linear_speed = 14.5; // in/s
+    int bodywidth {9}; // in
+    int outer_radius {radius + bodywidth}; //in
+    float linear_speed {14.5}; // in/s
     float ci {2*PI*radius};
     float co {2*PI*outer_radius};
     float t_req {co / linear_speed};
@@ -49,14 +49,14 @@ void setup() {
     delay(3000);
 
     // Loop runs for calculated time required to complete three full revolutions, plus a n additional amount
-    float t_init = millis();
-    float t_out = millis();
+    float t_init {millis()};
+    float t_out {millis()};
     while ((t_out - t_init) < t_req * 1000 * 3 * 0.5 + 2000)
     {
         // Inner loop runs on x fraction of t_interval, moving forward for x*t_interval and backward for (1-x)*t_interval
-        float t_interval = 250;
+        float t_interval {250};
 
-        float t_start = millis();
+        float t_start {millis()};
         float t = t_start;
         while ((t - t_start) < t_interval * x)
         {
@@ -67,7 +67,7 @@ void setup() {
             t = millis();
         }
 
-        float t_start2 = millis();
+        float t_start2 {millis()};
         t = t_start2;
         while ((t - t_start2) < t_interval * (1 - x))
         {
