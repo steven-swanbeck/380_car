@@ -34,7 +34,7 @@ void setup() {
     motorSpeedB = 240;
 
     Serial.begin(9600);
-    int radius = 25; // in
+    int radius = 12; // in
 
     int bodywidth = 9; // in
     int outer_radius = radius + bodywidth; //in
@@ -49,10 +49,12 @@ void setup() {
 
     Serial.println(t_req);
 
+    delay(3000);
+
     float t_init = millis();
     float t_out = millis();
     // while ((t_out - t_init) < t_req * 1000 * 3 * 0.75)
-    while ((t_out - t_init) < t_req * 1000 * 3 * 0.5)
+    while ((t_out - t_init) < t_req * 1000 * 3 * 0.5 + 2000)
     // while ((t_out - t_init) < t_req2 * 1000 * 3) 
     {
         float t_interval = 250;
