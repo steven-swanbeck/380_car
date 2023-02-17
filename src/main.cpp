@@ -87,6 +87,6 @@ void setup() {
 }
 
 void loop() {
-    analogWrite(enA, motorSpeedA); // Send PWM signal to motor A
-    analogWrite(enB, motorSpeedB); // Send PWM signal to motor B
+    analogWrite(enA, 0); // Send PWM signal to motor A
+    analogWrite(enB, 0); // Send PWM signal to motor B
 }
