@@ -1,7 +1,3 @@
-/*  Arduino DC Motor Control - PWM | H-Bridge | L298N
-         Example 02 - Arduino Robot Car Control
-    by Dejan Nedelkovski, www.HowToMechatronics.com
-*/
 #include <Arduino.h>
 
 // Motor Driver Connections
@@ -12,9 +8,11 @@
 #define in4 6
 #define enB 5
 #define button 4
-
+// Definitions
 int motorSpeedA = 0;
 int motorSpeedB = 0;
+int rot_direction {};
+int button_pressed {};
 
 // Joystick Connections
 #define joyX A1
@@ -22,10 +20,6 @@ int motorSpeedB = 0;
 
 // Potentiometer Connections
 #define pot_pin A0
-
-// misc variables
-int rot_direction {};
-int button_pressed {};
 
 void setup() {
     pinMode(enA, OUTPUT);
@@ -36,20 +30,20 @@ void setup() {
     pinMode(in4, OUTPUT);
 
     // initial motor directions
-    //   setMotorsForward();
+    // setMotorsForward();
     Serial.begin(9600);
 }
 
 void loop() {
     int xAxis = analogRead(A1); // Read Joysticks X-axis
     int yAxis = analogRead(A2); // Read Joysticks Y-axis
-    Serial.println(xAxis);
-    Serial.println(yAxis);
+    // Serial.println(xAxis);
+    // Serial.println(yAxis);
 
 
   // Y-axis used for forward and backward control
     if (yAxis > 530) {
-    // Set Motor A backward
+        // Set Motor A backward
         digitalWrite(in1, HIGH);
         digitalWrite(in2, LOW);
         // Set Motor B backward
@@ -60,7 +54,7 @@ void loop() {
         motorSpeedB = map(yAxis, 530, 1023, 0, 255);
     }
     else if (yAxis < 480) {
-    // Set Motor A forward
+        // Set Motor A forward
         digitalWrite(in1, LOW);
         digitalWrite(in2, HIGH);
         // Set Motor B forward
@@ -70,13 +64,13 @@ void loop() {
         motorSpeedA = map(yAxis, 480, 0, 0, 255);
         motorSpeedB = map(yAxis, 480, 0, 0, 255);
     }
-  // If joystick stays in middle the motors are not moving
+    // If joystick stays in middle the motors are not moving
     else {
         motorSpeedA = 0;
         motorSpeedB = 0;
     }
 
-  // X-axis used for left and right control
+    // X-axis used for left and right control
     if (xAxis < 480) {
         // Convert the declining X-axis readings from 470 to 0 into increasing 0 to 255 value
         int xMapped = map(xAxis, 480, 0, 0, 255);
@@ -92,7 +86,7 @@ void loop() {
         }
     }
     if (xAxis > 530) {
-    // Convert the increasing X-axis readings from 550 to 1023 into 0 to 255 value
+        // Convert the increasing X-axis readings from 550 to 1023 into 0 to 255 value
         int xMapped = map(xAxis, 530, 1023, 0, 255);
         // Move right - decrease right motor speed, increase left motor speed
         motorSpeedA = motorSpeedA + xMapped;
@@ -105,16 +99,12 @@ void loop() {
             motorSpeedB = 0;
         }
     }
-    // Prevent buzzing at low speeds (Adjust according to your motors. My motors couldn't start moving if PWM value was below value of 70)
-    if (motorSpeedA < 70) {
+    if (motorSpeedA < 60) {
         motorSpeedA = 0;
     }
-    if (motorSpeedB < 70) {
+    if (motorSpeedB < 60) {
         motorSpeedB = 0;
     }
-    analogWrite(enA, motorSpeedA); // Send PWM signal to motor A
-    analogWrite(enB, motorSpeedB); // Send PWM signal to motor B
+    analogWrite(enA, motorSpeedA);
+    analogWrite(enB, motorSpeedB);
 }
-
-
-
