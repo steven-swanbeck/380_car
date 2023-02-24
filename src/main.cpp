@@ -1,7 +1,3 @@
-/*  Arduino DC Motor Control - PWM | H-Bridge | L298N
-         Example 02 - Arduino Robot Car Control
-    by Dejan Nedelkovski, www.HowToMechatronics.com
-*/
 #include <Arduino.h>
 
 // Motor Driver Connections
