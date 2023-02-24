@@ -14,13 +14,6 @@ int motorSpeedB = 0;
 int rot_direction {};
 int button_pressed {};
 
-// Joystick Connections
-#define joyX A1
-#define joyY A2
-
-// Potentiometer Connections
-#define pot_pin A0
-
 void setup() {
     pinMode(enA, OUTPUT);
     pinMode(enB, OUTPUT);
@@ -39,9 +32,9 @@ void setup() {
     int height {6}; // in
     // -------------------
     float linear_speed {14.5}; //in/s
-    float t_wid {width / linear_speed}; //
+    float t_wid {width / linear_speed};
     float t_hgt {height / linear_speed};
-    float t_turn {(8*(3.14159264354)/2)/linear_speed}; //I will not apologize for my approximation of pi :)
+    float t_turn {(8*PI/2)/linear_speed};
     delay(3000);
     int count = 0;
     while(count < 6){
@@ -102,18 +95,14 @@ void setup() {
         Serial.println(count);
     }
     if (count>5){
-        Serial.println("I'm here");
         motorSpeedA = 0;
         motorSpeedB = 0;
-        analogWrite(enA, motorSpeedA); // Send PWM signal to motor A
+        analogWrite(enA, motorSpeedA);
         analogWrite(enB, motorSpeedB);
     }
 }
 
 void loop() {
-    //Do things
-    // analogWrite(enA, motorSpeedA); // Send PWM signal to motor A
-    // analogWrite(enB, motorSpeedB);
-    // Serial.println("I am here");
-    
+    analogWrite(enA, 0);
+    analogWrite(enB, 0);
 }
