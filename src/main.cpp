@@ -28,13 +28,13 @@ void setup() {
 
     // User input
     // -------------------
-    int width {12}; // in
-    int height {6}; // in
+    int width {24}; // in
+    int height {36}; // in
     // -------------------
     float linear_speed {14.5}; //in/s
     float t_wid {width / linear_speed};
     float t_hgt {height / linear_speed};
-    float t_turn {(8*PI/2)/linear_speed};
+    float t_turn {(6*PI/2)/linear_speed};
     delay(3000);
     int count = 0;
     while(count < 6){
@@ -42,7 +42,7 @@ void setup() {
         long unsigned int t_beg1 {millis()};
         long unsigned int t {millis()};
         while (t-t_beg1<t_wid*1000){
-            motorSpeedA = 200;
+            motorSpeedA = 210;
             motorSpeedB = 240;
             digitalWrite(in1, LOW);
             digitalWrite(in2, HIGH);
